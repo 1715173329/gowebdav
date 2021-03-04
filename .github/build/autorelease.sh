@@ -104,6 +104,6 @@ do
 		bin_name="gowebdav-${os}-${arch}"
 		;;
 	esac
-	[ "${os}" == "windows" ] && bin_name="${bin_name}.exe"
+	[ "${os}" == "windows" ] && bin_name="${os}-${snap}.exe"
 	build_package "${os}" "${arch}" "${arm}" "${mips}" "${mips64}" "${sse}"
 done
