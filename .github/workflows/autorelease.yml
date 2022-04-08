@@ -17,9 +17,9 @@ jobs:
         sudo -E apt update -y
         sudo -E apt install -y coreutils curl jq openssl tar zip
     - name: Initial Golang Toolchain
-      uses: actions/setup-go@v2
+      uses: actions/setup-go@v3
       with:
-        go-version: ^1.17
+        go-version: ^1.18
     - name: Build Binaries
       run: ${GITHUB_WORKSPACE}/.github/build/autorelease.sh
     - name: Upload Binaries to Release
