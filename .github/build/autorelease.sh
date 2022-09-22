@@ -24,28 +24,16 @@ readonly go_ldflags="-s -w -buildid="
 
 #  os      arch      amd64  arm  mips       mips64     sse        snap
 readonly platforms="\
-android    arm64     0      0    0          0          0          aarch64
-darwin     amd64     v1     0    0          0          0          0
-darwin     amd64     v2     0    0          0          0          0
-darwin     amd64     v3     0    0          0          0          0
-darwin     amd64     v4     0    0          0          0          0
-darwin     arm64     0      0    0          0          0          aarch64
-dragonfly  amd64     0      0    0          0          0          0
-freebsd    386       0      0    0          0          softfloat  386-softfloat
-freebsd    386       0      0    0          0          sse2       386-sse2
-freebsd    amd64     0      0    0          0          0          0
-freebsd    arm       0      7    0          0          0          armv7
-freebsd    arm64     0      0    0          0          0          aarch64
-linux      386       0      0    0          0          softfloat  386-softfloat
-linux      386       0      0    0          0          sse2       386-sse2
+linux      arm64     0      0    0          0          0          aarch64
 linux      amd64     v1     0    0          0          0          0
 linux      amd64     v2     0    0          0          0          0
 linux      amd64     v3     0    0          0          0          0
 linux      amd64     v4     0    0          0          0          0
+linux      386       0      0    0          0          softfloat  386-softfloat
+linux      386       0      0    0          0          sse2       386-sse2
 linux      arm       0      5    0          0          0          armv5
 linux      arm       0      6    0          0          0          armv6
 linux      arm       0      7    0          0          0          armv7
-linux      arm64     0      0    0          0          0          aarch64
 linux      mips      0      0    hardfloat  0          0          0
 linux      mips      0      0    softfloat  0          0          0
 linux      mips64    0      0    0          hardfloat  0          0
@@ -58,6 +46,18 @@ linux      ppc64     0      0    0          0          0          0
 linux      ppc64le   0      0    0          0          0          0
 linux      riscv64   0      0    0          0          0          0
 linux      s390x     0      0    0          0          0          0
+android    arm64     0      0    0          0          0          aarch64
+darwin     amd64     v1     0    0          0          0          0
+darwin     amd64     v2     0    0          0          0          0
+darwin     amd64     v3     0    0          0          0          0
+darwin     amd64     v4     0    0          0          0          0
+darwin     arm64     0      0    0          0          0          aarch64
+dragonfly  amd64     0      0    0          0          0          0
+freebsd    386       0      0    0          0          softfloat  386-softfloat
+freebsd    386       0      0    0          0          sse2       386-sse2
+freebsd    amd64     0      0    0          0          0          0
+freebsd    arm       0      7    0          0          0          armv7
+freebsd    arm64     0      0    0          0          0          aarch64
 openbsd    arm       0      7    0          0          0          armv7
 openbsd    arm64     0      0    0          0          0          aarch64
 openbsd    386       0      0    0          0          softfloat  386-softfloat
@@ -79,17 +79,18 @@ windows    arm       0      7    0          0          0          armv7"
 export CGO_ENABLED="0" GO111MODULE="on"
 
 function build_package(){
-		GOOS="$1" \
-		GOARCH="$2" \
-		GOAMD64="${3#0}"
-		GOARM="${4#0}" \
-		GOMIPS="${5#0}" \
-		GOMIPS64="${6#0}" \
-		GO386="${7#0}" \
-		go build \
-			-trimpath \
-			-ldflags="${go_ldflags}" \
-			-o "build/${bin_name}" || \
+	local env="GOOS=\"$1\" GOARCH=\"$2\""
+	[ "$3" = "0" ] || env="$env GOAMD64=\"$3\""
+	[ "$4" = "0" ] || env="$env GOARM=\"$4\""
+	[ "$5" = "0" ] || env="$env GOMIPS=\"$5\""
+	[ "$6" = "0" ] || env="$env GOMIPS64=\"$6\""
+	[ "$7" = "0" ] || env="$env GO386=\"$7\""
+	local cmd="$env go build"
+	cmd="$cmd -trimpath"
+	cmd="$cmd -ldflags=\"${go_ldflags}\""
+	cmd="$cmd -o \"build/${bin_name}\""
+	echo "run $cmd" >&2
+	eval "$cmd" || \
 	{ echo -e "Failed to build current binary."; exit 1; }
 
 	local method
