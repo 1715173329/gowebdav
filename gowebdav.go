@@ -90,11 +90,15 @@ func handleDirList(fs webdav.FileSystem, w http.ResponseWriter, req *http.Reques
     w.Header().Set("Content-Type", "text/html; charset=utf-8")
     fmt.Fprintf(w, "<pre>\n")
     for _, d := range dirs {
-        name := d.Name()
+        link := d.Name()
         if d.IsDir() {
-            name += "/"
+            link += "/"
         }
-        fmt.Fprintf(w, "<a href=\"%s\">%s</a>\n", name, name)
+        name := link
+        if (d.Mode() & os.ModeSymlink) == os.ModeSymlink {
+            name += "@"
+        }
+        fmt.Fprintf(w, "<a href=\"%s\">%s</a>\n", link, name)
     }
     fmt.Fprintf(w, "</pre>\n")
     return true
