@@ -79,10 +79,9 @@ windows    arm       0      7    0          0          0          armv7"
 export CGO_ENABLED="0" GO111MODULE="on"
 
 function build_package(){
-	env \
 		GOOS="$1" \
 		GOARCH="$2" \
-		GOAMD64="{3#0}"
+		GOAMD64="${3#0}"
 		GOARM="${4#0}" \
 		GOMIPS="${5#0}" \
 		GOMIPS64="${6#0}" \
