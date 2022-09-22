@@ -120,5 +120,5 @@ do
 		;;
 	esac
 	[ "${os}" == "windows" ] && bin_name="${os}-${snap}.exe"
-	build_package "${os}" "${arch}" "${arm}" "${mips}" "${mips64}" "${sse}"
+	build_package "${os}" "${arch}" "${amd64}" "${arm}" "${mips}" "${mips64}" "${sse}"
 done
