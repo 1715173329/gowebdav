@@ -1,12 +1,15 @@
 // Fefer: https://doc.xuwenliang.com/docs/go/1814
 
 package main
+
 import (
     "flag"
     "fmt"
     "log"
     "net/http"
     "os"
+    "strings"
+
     "golang.org/x/net/context"
     "golang.org/x/net/webdav"
 )
@@ -74,6 +77,10 @@ func handleDirList(fs webdav.FileSystem, w http.ResponseWriter, req *http.Reques
     defer f.Close()
     if fi, _ := f.Stat(); fi != nil && !fi.IsDir() {
         return false
+    }
+    if !strings.HasSuffix(req.URL.Path, "/") {
+        http.Redirect(w, req, req.URL.Path+"/", 302)
+        return true
     }
     dirs, err := f.Readdir(-1)
     if err != nil {
