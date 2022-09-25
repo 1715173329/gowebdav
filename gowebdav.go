@@ -3,15 +3,16 @@
 package main
 
 import (
-    "flag"
-    "fmt"
-    "log"
-    "net/http"
-    "os"
-    "strings"
+	"flag"
+	"fmt"
+	"log"
+	"net/http"
+	"os"
+	"path/filepath"
+	"strings"
 
-    "golang.org/x/net/context"
-    "golang.org/x/net/webdav"
+	"golang.org/x/net/context"
+	"golang.org/x/net/webdav"
 )
 var (
     flagRootDir   = flag.String("dir", "", "webdav root dir")
@@ -30,10 +31,20 @@ func init() {
         fmt.Fprintf(os.Stderr, "\nReport bugs to <chaishushan@gmail.com>.\n")
     }
 }
+type SkipBrokenLink struct {
+    webdav.Dir
+}
+func (d SkipBrokenLink) Stat(ctx context.Context, name string) (os.FileInfo, error) {
+    fileinfo, err := d.Dir.Stat(ctx, name)
+    if err != nil && os.IsNotExist(err) {
+        return nil, filepath.SkipDir
+    }
+    return fileinfo, err
+}
 func main() {
     flag.Parse()
     fs := &webdav.Handler{
-        FileSystem: webdav.Dir(*flagRootDir),
+        FileSystem: SkipBrokenLink{webdav.Dir(*flagRootDir)},
         LockSystem: webdav.NewMemLS(),
     }
     http.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
