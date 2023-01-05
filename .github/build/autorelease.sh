@@ -92,7 +92,6 @@ function build_package(){
 		GOMIPS="${5#-}" \
 		GOMIPS64="${6#-}" \
 		GO386="${7#-}" \
-		VERBOSE=1 \
 		go build \
 			-trimpath \
 			-ldflags="${go_ldflags}" \
