@@ -6,10 +6,10 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     - name: Initial Building Dependencies
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -19,11 +19,11 @@ jobs:
     - name: Initial Golang Toolchain
       uses: actions/setup-go@v3
       with:
-        go-version: ^1.18
+        go-version: ^1.19
     - name: Build Binaries
       run: ${GITHUB_WORKSPACE}/.github/build/autorelease.sh
     - name: Upload Binaries to Release
-      uses: svenstaro/upload-release-action@v2
+      uses: svenstaro/upload-release-action@c2e0608dc488a01c4e26177356355f57d5185af7
       with:
         repo_token: ${{ github.token }}
         file: build/*
