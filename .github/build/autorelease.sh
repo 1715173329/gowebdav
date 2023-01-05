@@ -24,56 +24,62 @@ readonly go_ldflags="-s -w -buildid="
 
 #  os      arch      amd64  arm  mips       mips64     sse        snap
 readonly platforms="\
-android    arm64     0      0    0          0          0          aarch64
-darwin     amd64     v1     0    0          0          0          0
-darwin     amd64     v2     0    0          0          0          0
-darwin     amd64     v3     0    0          0          0          0
-darwin     amd64     v4     0    0          0          0          0
-darwin     arm64     0      0    0          0          0          aarch64
-dragonfly  amd64     0      0    0          0          0          0
-freebsd    386       0      0    0          0          softfloat  386-softfloat
-freebsd    386       0      0    0          0          sse2       386-sse2
-freebsd    amd64     0      0    0          0          0          0
-freebsd    arm       0      7    0          0          0          armv7
-freebsd    arm64     0      0    0          0          0          aarch64
-linux      386       0      0    0          0          softfloat  386-softfloat
-linux      386       0      0    0          0          sse2       386-sse2
-linux      amd64     v1     0    0          0          0          0
-linux      amd64     v2     0    0          0          0          0
-linux      amd64     v3     0    0          0          0          0
-linux      amd64     v4     0    0          0          0          0
-linux      arm       0      5    0          0          0          armv5
-linux      arm       0      6    0          0          0          armv6
-linux      arm       0      7    0          0          0          armv7
-linux      arm64     0      0    0          0          0          aarch64
-linux      mips      0      0    hardfloat  0          0          0
-linux      mips      0      0    softfloat  0          0          0
-linux      mips64    0      0    0          hardfloat  0          0
-linux      mips64    0      0    0          softfloat  0          0
-linux      mips64le  0      0    0          hardfloat  0          0
-linux      mips64le  0      0    0          softfloat  0          0
-linux      mipsle    0      0    hardfloat  0          0          0
-linux      mipsle    0      0    softfloat  0          0          0
-linux      ppc64     0      0    0          0          0          0
-linux      ppc64le   0      0    0          0          0          0
-linux      riscv64   0      0    0          0          0          0
-linux      s390x     0      0    0          0          0          0
-openbsd    arm       0      7    0          0          0          armv7
-openbsd    arm64     0      0    0          0          0          aarch64
-openbsd    386       0      0    0          0          softfloat  386-softfloat
-openbsd    386       0      0    0          0          sse2       386-sse2
-openbsd    amd64     v1     0    0          0          0          0
-openbsd    amd64     v2     0    0          0          0          0
-openbsd    amd64     v3     0    0          0          0          0
-openbsd    amd64     v4     0    0          0          0          0
-windows    386       0      0    0          0          softfloat  x86_softfloat
-windows    386       0      0    0          0          sse2       x86_sse2
-windows    amd64     v1     0    0          0          0          x86_64_v1
-windows    amd64     v2     0    0          0          0          x86_64_v2
-windows    amd64     v3     0    0          0          0          x86_64_v3
-windows    amd64     v4     0    0          0          0          x86_64_v4
-windows    arm       0      6    0          0          0          armv6
-windows    arm       0      7    0          0          0          armv7"
+android    arm64     -      -    -          -          -          aarch64
+darwin     amd64     v1     -    -          -          -          -
+darwin     amd64     v2     -    -          -          -          -
+darwin     amd64     v3     -    -          -          -          -
+darwin     amd64     v4     -    -          -          -          -
+darwin     arm64     -      -    -          -          -          aarch64
+dragonfly  amd64     v1     -    -          -          -          -
+dragonfly  amd64     v2     -    -          -          -          -
+dragonfly  amd64     v3     -    -          -          -          -
+dragonfly  amd64     v4     -    -          -          -          -
+freebsd    386       -      -    -          -          softfloat  386-softfloat
+freebsd    386       -      -    -          -          sse2       386-sse2
+freebsd    amd64     v1     -    -          -          -          -
+freebsd    amd64     v2     -    -          -          -          -
+freebsd    amd64     v3     -    -          -          -          -
+freebsd    amd64     v4     -    -          -          -          -
+freebsd    arm       -      7    -          -          -          armv7
+freebsd    arm64     -      -    -          -          -          aarch64
+linux      386       -      -    -          -          softfloat  386-softfloat
+linux      386       -      -    -          -          sse2       386-sse2
+linux      amd64     v1     -    -          -          -          -
+linux      amd64     v2     -    -          -          -          -
+linux      amd64     v3     -    -          -          -          -
+linux      amd64     v4     -    -          -          -          -
+linux      arm       -      5    -          -          -          armv5
+linux      arm       -      6    -          -          -          armv6
+linux      arm       -      7    -          -          -          armv7
+linux      arm64     -      -    -          -          -          aarch64
+linux      mips      -      -    hardfloat  -          -          -
+linux      mips      -      -    softfloat  -          -          -
+linux      mips64    -      -    -          hardfloat  -          -
+linux      mips64    -      -    -          softfloat  -          -
+linux      mips64le  -      -    -          hardfloat  -          -
+linux      mips64le  -      -    -          softfloat  -          -
+linux      mipsle    -      -    hardfloat  -          -          -
+linux      mipsle    -      -    softfloat  -          -          -
+linux      ppc64     -      -    -          -          -          -
+linux      ppc64le   -      -    -          -          -          -
+linux      riscv64   -      -    -          -          -          -
+linux      s390x     -      -    -          -          -          -
+openbsd    arm       -      7    -          -          -          armv7
+openbsd    arm64     -      -    -          -          -          aarch64
+openbsd    386       -      -    -          -          softfloat  386-softfloat
+openbsd    386       -      -    -          -          sse2       386-sse2
+openbsd    amd64     v1     -    -          -          -          -
+openbsd    amd64     v2     -    -          -          -          -
+openbsd    amd64     v3     -    -          -          -          -
+openbsd    amd64     v4     -    -          -          -          -
+windows    386       -      -    -          -          softfloat  x86_softfloat
+windows    386       -      -    -          -          sse2       x86_sse2
+windows    amd64     v1     -    -          -          -          x86_64_v1
+windows    amd64     v2     -    -          -          -          x86_64_v2
+windows    amd64     v3     -    -          -          -          x86_64_v3
+windows    amd64     v4     -    -          -          -          x86_64_v4
+windows    arm       -      6    -          -          -          armv6
+windows    arm       -      7    -          -          -          armv7"
 
 #      Don't use CGO   Use modules
 export CGO_ENABLED="0" GO111MODULE="on"
@@ -81,21 +87,22 @@ export CGO_ENABLED="0" GO111MODULE="on"
 function build_package(){
 		GOOS="$1" \
 		GOARCH="$2" \
-		GOAMD64="${3#0}"
-		GOARM="${4#0}" \
-		GOMIPS="${5#0}" \
-		GOMIPS64="${6#0}" \
-		GO386="${7#0}" \
+		GOAMD64="${3#-}" \
+		GOARM="${4#-}" \
+		GOMIPS="${5#-}" \
+		GOMIPS64="${6#-}" \
+		GO386="${7#-}" \
+		VERBOSE=1 \
 		go build \
 			-trimpath \
 			-ldflags="${go_ldflags}" \
-			-o "build/${bin_name}" || \
+			-o "build/${8}" || \
 	{ echo -e "Failed to build current binary."; exit 1; }
 
 	local method
 	for method in {"md5","sha1","sha256","sha512"}
 	do
-		openssl dgst -"${method}" "build/${bin_name}" | sed 's/([^)]*)//g' >> "build/${bin_name}.dgst"
+		openssl dgst -"${method}" "build/${8}" | sed 's/([^)]*)//g' >> "build/${8}.dgst"
 	done
 }
 
@@ -120,5 +127,5 @@ do
 		;;
 	esac
 	[ "${os}" == "windows" ] && bin_name="${os}-${snap}.exe"
-	build_package "${os}" "${arch}" "${amd64}" "${arm}" "${mips}" "${mips64}" "${sse}"
+	build_package "${os}" "${arch}" "${amd64}" "${arm}" "${mips}" "${mips64}" "${sse}" "${bin_name}"
 done
