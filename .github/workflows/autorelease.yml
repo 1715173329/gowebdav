@@ -19,7 +19,7 @@ jobs:
     - name: Initial Golang Toolchain
       uses: actions/setup-go@v4
       with:
-        go-version: 'old-stable'
+        go-version: 'stable'
     - name: Build Binaries
       run: ${GITHUB_WORKSPACE}/.github/build/autorelease.sh
     - name: Upload Binaries to Release
